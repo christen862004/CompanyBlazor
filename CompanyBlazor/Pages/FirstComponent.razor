@@ -1,0 +1,19 @@
+﻿@page "/First"
+
+<PageTitle> First Component</PageTitle>
+
+<h3>FirstComponent</h3>
+<input type="button" value="Click ME" class="btn btn-success" @onclick='()=>ShowMessage("Hi")' />
+
+<input type="button" value="Change Message" class="btn btn-success" @onclick="Change"/> 
+<h2>One Way Binding FRom C# To HTML</h2>
+<h3>@Msg</h3>
+<input type="text" value="@Msg" class="form form-control" />
+<hr />
+<br />
+<h2>Two Way Binding From C# To HTML and vers with update</h2>
+<input type="text" class="form form-control" 
+        @bind-value="Msg" @bind-value:event="oninput"/>
+
+<input type="text" class="form form-control" 
+        @bind="Msg" @bind:event="oninput" />
