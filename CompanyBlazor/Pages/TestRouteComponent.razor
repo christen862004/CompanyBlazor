@@ -1,0 +1,39 @@
+﻿@page "/Test/{id:int}/{name}"
+<h3>TestRouteComponent</h3>
+<h3>@id</h3>
+<h4>@name</h4>
+@code {
+    [Parameter]
+    public int id { get; set; } 
+
+    [Parameter]
+    public string name { get; set; }
+    public TestRouteComponent()
+    {
+        //inialize all property with default value
+        Console.WriteLine($"Constructor :ID={id}  \t name={name}");
+    }
+    protected override void OnInitialized()
+    {
+        Console.WriteLine($"onintalize MEthod :ID={id}  \t name={name}");
+        //base parameter -- service base on parameter
+
+        base.OnInitialized();
+    }
+
+    public override Task SetParametersAsync(ParameterView parameters)
+    {
+        Console.WriteLine($"SetParmeter MEthod :ID={id}  \t name={name}");
+        return base.SetParametersAsync(parameters);
+
+    }
+  
+
+    protected override void OnParametersSet()
+    {
+        Console.WriteLine($"onParameter MEthod :ID={id}  \t name={name}");
+
+        base.OnParametersSet();
+    }
+
+}

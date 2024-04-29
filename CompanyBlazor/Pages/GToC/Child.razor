@@ -1,0 +1,14 @@
+﻿<div style="border:solid 5px red;margin:10px">
+    <h3>Child</h3>
+    <h4>MEssage= @Msg</h4>
+    <h5>Age= @Age</h5>
+</div>
+
+@code {
+    //at any level
+    [CascadingParameter(Name = "Message")]//family send info
+    public string Msg { get; set; } = "Initalization";
+
+    [CascadingParameter(Name ="Age")]
+    public int Age { get; set; }
+}

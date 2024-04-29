@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-
+using CompanyBlazor.Services;
+using CompanyBlazor.Models;
 namespace CompanyBlazor
 {
     public class Program
@@ -10,7 +11,8 @@ namespace CompanyBlazor
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
             builder.RootComponents.Add<HeadOutlet>("head::after");
-            
+
+            builder.Services.AddScoped<IServies<Employee>, EmployeeService>();
 
             //Day3
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });

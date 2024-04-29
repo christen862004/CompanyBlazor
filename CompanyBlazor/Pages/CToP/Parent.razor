@@ -1,0 +1,15 @@
+﻿@page "/parent3"
+<h3>Parent</h3>
+<!--Subscribt (handel)-->
+<Child ChangeMsgEvent="ChangeChildMsgHandel"></Child>
+
+<h2>@ParentMsg</h2>
+
+@code {
+    public string ParentMsg { get; set; }
+    void ChangeChildMsgHandel(string msg)
+    {
+        ParentMsg = msg;
+        Console.WriteLine(msg);
+    }
+}

@@ -1,0 +1,55 @@
+﻿@page "/Emp/Edit/{id:int}"
+<h3>EditEmployeeCompoent</h3>
+@if (EmpObj != null)
+{
+    <EditForm Model="EmpObj" OnSubmit="Save">
+        <div>
+            <label>Name</label>
+            <InputText class="form form-control" @bind-Value="EmpObj.Name"></InputText>
+        </div>
+        <div>
+            <label>Salary</label>
+            <InputNumber class="form form-control" @bind-Value="EmpObj.Salary"></InputNumber>
+        </div>
+        <div>
+            <label>Image</label>
+            <InputText class="form form-control" @bind-Value="EmpObj.Image"></InputText>
+        </div>
+        <div>
+            <label>DEpartment</label>
+            <InputNumber class="form form-control" @bind-Value="EmpObj.Dept_Id"></InputNumber>
+        </div>
+        <input type="submit" class="btn btn-success" value="Save" />
+    </EditForm>
+    <div style="border:2px solid green">
+        @EmpObj.Name - @EmpObj.Salary - @EmpObj.Image - @EmpObj.Dept_Id
+    </div>
+}
+else
+{
+    <h2>Wait or invalid id</h2>
+}
+@code {
+    [Parameter]
+    public int id { get; set; }
+
+    public Employee EmpObj { get; set; }
+
+    [Inject]
+    public IServies<Employee> EmpService { get; set; }
+
+    [Inject]
+    public NavigationManager NavManager { get; set; }//built in service already register IOC
+
+    protected override void OnInitialized()
+    {
+        EmpObj= EmpService.getById(id);
+        base.OnInitialized();
+    }
+    void Save()
+    {
+        //PUT
+        Console.WriteLine("Data Save");
+        NavManager.NavigateTo("/Emps");
+    }
+}

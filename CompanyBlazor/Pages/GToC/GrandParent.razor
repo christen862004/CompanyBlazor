@@ -1,0 +1,12 @@
+﻿@page "/GParent"
+<h3>GrandParent</h3>
+
+@* <CascadingValue Name="Message" Value="@("hello")"> *@
+<CascadingValue Name="Message" Value="LocalMsg">
+    <CascadingValue Name="Age" Value="10">
+        <Parent></Parent>
+    </CascadingValue>
+</CascadingValue>
+@code {
+    public string LocalMsg { get; set; } = "Msg From Parent";
+}

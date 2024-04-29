@@ -1,0 +1,11 @@
+﻿@page "/parent1"
+<h3>ParentComponent</h3>
+<h5>Pass info from Parent To Child</h5>
+<input @bind-value="ParentMsg" class="form form-control"/>
+
+<ChildComponent Msg="Child1 From Parent"></ChildComponent>
+<hr />
+<ChildComponent Msg="@ParentMsg"></ChildComponent>
+@code {
+    public string ParentMsg { get; set; }
+}

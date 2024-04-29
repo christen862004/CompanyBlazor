@@ -1,0 +1,10 @@
+﻿<div style="border:solid 5px red;margin:10px">
+    <h3>ChildComponent</h3>
+    <h4>@Msg</h4>
+</div>
+
+@code {
+
+    [Parameter]//rout segmant -- parent attribute -- dedfault 
+    public string Msg { get; set; } = "Initial from Child";
+}
