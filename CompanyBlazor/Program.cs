@@ -13,6 +13,8 @@ namespace CompanyBlazor
             builder.RootComponents.Add<HeadOutlet>("head::after");
 
             builder.Services.AddScoped<IServies<Employee>, EmployeeService>();
+            builder.Services.AddScoped<IServies<Department>, DepartmentService>();
+
 
             //Day3
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });

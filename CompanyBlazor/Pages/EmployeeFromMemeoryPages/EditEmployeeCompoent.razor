@@ -17,7 +17,13 @@
         </div>
         <div>
             <label>DEpartment</label>
-            <InputNumber class="form form-control" @bind-Value="EmpObj.Dept_Id"></InputNumber>
+            @* <InputNumber class="form form-control" @bind-Value="EmpObj.Dept_Id"></InputNumber> *@
+            <InputSelect class="form form-control" @bind-Value="EmpObj.Dept_Id">
+                @foreach (var deptItem in DeptList)
+                {
+                    <option value="@deptItem.Id">@deptItem.Name</option>
+                }
+            </InputSelect>
         </div>
         <input type="submit" class="btn btn-success" value="Save" />
     </EditForm>
@@ -34,9 +40,13 @@ else
     public int id { get; set; }
 
     public Employee EmpObj { get; set; }
+    public List<Department> DeptList { get; set; }
 
     [Inject]
     public IServies<Employee> EmpService { get; set; }
+
+    [Inject]
+    public IServies<Department> DEptService{ get; set; }
 
     [Inject]
     public NavigationManager NavManager { get; set; }//built in service already register IOC
@@ -44,6 +54,7 @@ else
     protected override void OnInitialized()
     {
         EmpObj= EmpService.getById(id);
+        DeptList= DEptService.getAll();//Select
         base.OnInitialized();
     }
     void Save()
