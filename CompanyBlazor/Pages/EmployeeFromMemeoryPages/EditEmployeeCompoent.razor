@@ -2,34 +2,50 @@
 <h3>EditEmployeeCompoent</h3>
 @if (EmpObj != null)
 {
-    <EditForm Model="EmpObj" OnSubmit="Save">
-        <div>
-            <label>Name</label>
-            <InputText class="form form-control" @bind-Value="EmpObj.Name"></InputText>
+    if (IsSave == false)
+    {
+        <EditForm Model="EmpObj"  OnValidSubmit="Save" OnInvalidSubmit="Invalid">
+            <!--active Feature Validation-->
+            <DataAnnotationsValidator></DataAnnotationsValidator>
+            <!--Jquerey-->
+            <ValidationSummary></ValidationSummary>
+            <div>
+                <label>Name</label>
+                <InputText class="form form-control " @bind-Value="EmpObj.Name" ></InputText>
+                <ValidationMessage For="()=>EmpObj.Name"></ValidationMessage>
+            </div>
+            <div>
+                <label>Salary</label>
+                <InputNumber class="form form-control" @bind-Value="EmpObj.Salary"></InputNumber>
+                <ValidationMessage For="()=>EmpObj.Salary"></ValidationMessage>
+                @* <ValidationMessage For=@(()=>EmpObj.Name)></ValidationMessage> *@
+            </div>
+            <div>
+                <label>Image</label>
+                <InputText class="form form-control" @bind-Value="EmpObj.Image"></InputText>
+                <ValidationMessage For="()=>EmpObj.Image"></ValidationMessage>
+            </div>
+            <div>
+                <label>DEpartment</label>
+                @* <InputNumber class="form form-control" @bind-Value="EmpObj.Dept_Id"></InputNumber> *@
+                <InputSelect class="form form-control" @bind-Value="EmpObj.Dept_Id">
+                    @foreach (var deptItem in DeptList)
+                    {
+                        <option value="@deptItem.Id">@deptItem.Name</option>
+                    }
+                </InputSelect>
+                <ValidationMessage For="()=>EmpObj.Dept_Id"></ValidationMessage>
+            </div>
+            <input type="submit" class="btn btn-success" value="Save" />
+        </EditForm>
+        <div style="border:2px solid green">
+            @EmpObj.Name - @EmpObj.Salary - @EmpObj.Image - @EmpObj.Dept_Id
         </div>
-        <div>
-            <label>Salary</label>
-            <InputNumber class="form form-control" @bind-Value="EmpObj.Salary"></InputNumber>
-        </div>
-        <div>
-            <label>Image</label>
-            <InputText class="form form-control" @bind-Value="EmpObj.Image"></InputText>
-        </div>
-        <div>
-            <label>DEpartment</label>
-            @* <InputNumber class="form form-control" @bind-Value="EmpObj.Dept_Id"></InputNumber> *@
-            <InputSelect class="form form-control" @bind-Value="EmpObj.Dept_Id">
-                @foreach (var deptItem in DeptList)
-                {
-                    <option value="@deptItem.Id">@deptItem.Name</option>
-                }
-            </InputSelect>
-        </div>
-        <input type="submit" class="btn btn-success" value="Save" />
-    </EditForm>
-    <div style="border:2px solid green">
-        @EmpObj.Name - @EmpObj.Salary - @EmpObj.Image - @EmpObj.Dept_Id
-    </div>
+    }
+    else
+    {
+        <div>Data Save</div>
+    }
 }
 else
 {
@@ -57,10 +73,18 @@ else
         DeptList= DEptService.getAll();//Select
         base.OnInitialized();
     }
+    public bool IsSave { get; set; } = false;
+
     void Save()
     {
-        //PUT
+
+        //return reposnse =PUT
         Console.WriteLine("Data Save");
+        IsSave = true;
         NavManager.NavigateTo("/Emps");
+    }
+    void Invalid()
+    {
+        Console.WriteLine("Invalid Employee Data");
     }
 }
